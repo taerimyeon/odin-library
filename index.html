@@ -7,37 +7,39 @@
     <script src="./src/scripts/index.js"></script>
   </head>
   <body>
-    <div id="book-container">
+    <div id="book-display-container" class="book-display-container">
       <button id="button-show-modal-add-book">
         + Add Book
       </button>
+      <div id="book-cards-container" class="book-cards-container">
+      </div>
     </div>
     <div id="modal-overlay-container" class="modal-overlay-container">
       <div id="modal-container-add-book" class="modal-container-add-book">
-        <div class="modal-form-add-book">
+        <form id="modal-form-add-book" class="modal-form-add-book" action="index.html" method="post">
           <div class="modal-add-book-input-container">
             <label for="modal-form-add-book-title">Title</label>
-            <input id="modal-form-add-book-title" name="modal-form-add-book-title" type="text">
+            <input id="modal-form-add-book-title" name="modal-form-add-book-title" type="text" required>
           </div>
           <div class="modal-add-book-input-container">
             <label for="modal-form-add-book-author">Author</label>
-            <input id="modal-form-add-book-author" name="modal-form-add-book-author" type="text">
+            <input id="modal-form-add-book-author" name="modal-form-add-book-author" type="text" required>
           </div>
           <div class="modal-add-book-input-container">
             <label for="modal-form-add-book-pages">Pages</label>
-            <input id="modal-form-add-book-pages" name="modal-form-add-book-pages" type="number">
+            <input id="modal-form-add-book-pages" name="modal-form-add-book-pages" type="number" required>
           </div>
           <div class="modal-add-book-input-container">
             <label for="modal-form-add-book-read">Has it been read?</label>
             <input id="modal-form-add-book-read" name="modal-form-add-book-read" type="checkbox">
           </div>
-          <button id="button-cancel-add-book" class="modal-button-cancel-add-book">
+          <button id="modal-button-cancel-add-book" class="modal-button-cancel-add-book">
             Cancel
           </button>
-          <button class="modal-button-add-book">
+          <button id="modal-button-add-book" class="modal-button-add-book" type="submit">
             Add Book to Library
           </button>
-        </div>
+        </form>
       </div>
     </div>
   </body>

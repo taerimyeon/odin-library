@@ -35,8 +35,6 @@ body {
   display: none;
   align-items: center;
   justify-content: center;
-  width: var(--width-quarter);
-  height: var(--height-quarter);
   background-color: var(--color-white);
   padding: 3rem;
 }
