@@ -28,13 +28,26 @@ function addBookToLibrary(
   displayBookCards(myLibrary[myLibrary.length - 1]);
 }
 
+function removeBookFromLibrary(bookId) {
+  const confirmed = confirm("Are you sure to remove this book?");
+  if (confirmed) {
+    myLibrary = myLibrary.filter(book => book.id !== bookId);
+    const newBookCardMainContainer = document.getElementById("book-cards-container");
+    const newBookCardIndividualContainer = document.getElementById(bookId);
+    newBookCardMainContainer.removeChild(newBookCardIndividualContainer);
+  }
+}
+
 function displayBookCards(bookData) {
-  const newBookCardContainer = document.getElementById("book-cards-container");
+  const newBookCardMainContainer = document.getElementById("book-cards-container");
+  const newBookCardIndividualContainer = document.createElement("div");
   const newBookTitleElement = document.createElement("p");
   const newBookAuthorElement = document.createElement("p");
   const newBookPagesElement = document.createElement("p");
   const newBookIsReadElement = document.createElement("p");
+  const newBookRemoveButton = document.createElement("button");
 
+  newBookCardIndividualContainer.setAttribute("id", bookData.id);
   newBookTitleElement.setAttribute("id", "book-title");
   newBookTitleElement.setAttribute("class", "book-title");
   newBookAuthorElement.setAttribute("id", "book-author");
@@ -43,19 +56,25 @@ function displayBookCards(bookData) {
   newBookPagesElement.setAttribute("class", "book-pages");
   newBookIsReadElement.setAttribute("id", "book-is-read");
   newBookIsReadElement.setAttribute("class", "book-is-read");
+  newBookRemoveButton.addEventListener("click", () => {
+    removeBookFromLibrary(bookData.id);
+  });
 
   newBookTitleElement.textContent = bookData.title;
   newBookAuthorElement.textContent = bookData.author;
-  newBookPagesElement.textContent = bookData.pages;
+  newBookPagesElement.textContent = `${bookData.pages} pages`;
   newBookIsReadElement.textContent = bookData.isRead;
+  newBookRemoveButton.textContent = "Delete Book";
 
-  newBookCardContainer.appendChild(newBookTitleElement);
-  newBookCardContainer.appendChild(newBookAuthorElement);
-  newBookCardContainer.appendChild(newBookPagesElement);
-  newBookCardContainer.appendChild(newBookIsReadElement);
+  // Append the display elements to individual card container
+  newBookCardIndividualContainer.appendChild(newBookTitleElement);
+  newBookCardIndividualContainer.appendChild(newBookAuthorElement);
+  newBookCardIndividualContainer.appendChild(newBookPagesElement);
+  newBookCardIndividualContainer.appendChild(newBookIsReadElement);
+  newBookCardIndividualContainer.appendChild(newBookRemoveButton);
+  // Then to the main card container
+  newBookCardMainContainer.appendChild(newBookCardIndividualContainer);
 }
-
-
 
 // On DOM mounted
 document.addEventListener("DOMContentLoaded", function() {
