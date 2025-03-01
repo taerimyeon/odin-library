@@ -1,3 +1,4 @@
+let bookIdToBeDeleted = "";
 let myLibrary = [];
 
 function Book(
@@ -33,13 +34,9 @@ function addBookToLibrary(
 }
 
 function removeBookFromLibrary(bookId) {
-  const confirmed = confirm("Are you sure to remove this book?");
-  if (confirmed) {
-    myLibrary = myLibrary.filter(book => book.id !== bookId);
-    const newBookCardMainContainer = document.getElementById("book-cards-container");
-    const newBookCardIndividualContainer = document.getElementById(bookId);
-    newBookCardMainContainer.removeChild(newBookCardIndividualContainer);
-  }
+  const newBookCardIndividualContainer = document.getElementById(bookId);
+  newBookCardIndividualContainer.parentNode.removeChild(newBookCardIndividualContainer);
+  myLibrary = myLibrary.filter(book => book.id !== bookId);
 }
 
 function displayBookCards(bookData) {
@@ -58,11 +55,15 @@ function displayBookCards(bookData) {
   newBookAuthorElement.setAttribute("class", "book-author");
   newBookPagesElement.setAttribute("id", "book-pages");
   newBookPagesElement.setAttribute("class", "book-pages");
-  newBookIsReadElement.setAttribute("id", bookData.id);
+  newBookIsReadElement.setAttribute("id", "book-is-read");
   newBookIsReadElement.setAttribute("class", "book-is-read");
   newBookIsReadElement.setAttribute("type", "checkbox");
   newBookRemoveButton.addEventListener("click", () => {
-    removeBookFromLibrary(bookData.id);
+    bookIdToBeDeleted = bookData.id; // Store the clicked book ID
+    const modalDialogTextComponent = document.getElementById("dialog-text");
+    modalDialogTextComponent.textContent = "Are you sure you want to remove this book?";
+    const modalDialogContainerComponent = document.getElementById("confirm-dialog");
+    modalDialogContainerComponent.showModal(); // Show dialog modal
   });
   newBookIsReadElement.addEventListener("change", () => {
     bookData.toggleIsRead();
@@ -87,30 +88,36 @@ function displayBookCards(bookData) {
 
 // On DOM mounted
 document.addEventListener("DOMContentLoaded", function() {
-  const buttonShowModalAddBookComponent = document.getElementById("button-show-modal-add-book");
-  const buttonCancelAddBookComponent = document.getElementById("modal-button-cancel-add-book");
-  const formAddBookComponent = document.getElementById("modal-form-add-book");
-  const modalOverlayContainerComponent = document.getElementById("modal-overlay-container");
-  const modalAddBookContainerComponent = document.getElementById("modal-container-add-book");
+  const buttonShowModalAddBookComponent = document.getElementById("button-add-book-dialog-show");
+  const buttonConfirmDialogComponent = document.getElementById("button-dialog-confirm");
+  const buttonCancelAddBookComponent = document.getElementById("button-add-book-cancel");
+  const buttonCancelDialogComponent = document.getElementById("button-dialog-cancel");
+  const formAddBookComponent = document.getElementById("add-book-form");
+  const modalAddBookContainerComponent = document.getElementById("add-book-dialog");
+  const modalDialogContainerComponent = document.getElementById("confirm-dialog");
   buttonShowModalAddBookComponent.addEventListener("click", () => {
-    modalOverlayContainerComponent.style.display = "flex"; // Show modal overlay
-    modalAddBookContainerComponent.style.display = "flex"; // Show add book modal
+    modalAddBookContainerComponent.showModal(); // Show add book dialog
   });
   buttonCancelAddBookComponent.addEventListener("click", () => {
-    modalOverlayContainerComponent.style.display = "none"; // Close modal overlay
-    modalAddBookContainerComponent.style.display = "none"; // Close add book modal
+    modalAddBookContainerComponent.close(); // Close add book dialog
     formAddBookComponent.reset();
   });
   formAddBookComponent.addEventListener("submit", (event) => {
     event.preventDefault();
     addBookToLibrary(
-      formAddBookComponent["modal-form-add-book-title"].value,
-      formAddBookComponent["modal-form-add-book-author"].value,
-      formAddBookComponent["modal-form-add-book-pages"].value,
-      formAddBookComponent["modal-form-add-book-read"].checked
+      formAddBookComponent["add-book-form-title"].value,
+      formAddBookComponent["add-book-form-author"].value,
+      formAddBookComponent["add-book-form-pages"].value,
+      formAddBookComponent["add-book-form-read"].checked
     )
-    modalOverlayContainerComponent.style.display = "none"; // Close modal overlay
-    modalAddBookContainerComponent.style.display = "none"; // Close add book modal
+    modalAddBookContainerComponent.close(); // Close add book dialog
     formAddBookComponent.reset();
+  });
+  buttonConfirmDialogComponent.addEventListener("click", () => {
+    removeBookFromLibrary(bookIdToBeDeleted);
+    modalDialogContainerComponent.close(); // Close confirm dialog
+  });
+  buttonCancelDialogComponent.addEventListener("click", () => {
+    modalDialogContainerComponent.close(); // Close confirm dialog
   });
 })

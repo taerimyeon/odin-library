@@ -8,39 +8,49 @@
   </head>
   <body>
     <div id="book-display-container" class="book-display-container">
-      <button id="button-show-modal-add-book" class="button-show-modal-add-book">
+      <button id="button-add-book-dialog-show" class="button-add-book-dialog-show">
         + Add Book
       </button>
       <div id="book-cards-container" class="book-cards-container">
       </div>
     </div>
-    <div id="modal-overlay-container" class="modal-overlay-container">
-      <div id="modal-container-add-book" class="modal-container-add-book">
-        <form id="modal-form-add-book" class="modal-form-add-book" action="index.html" method="post">
-          <div class="modal-add-book-input-container">
-            <label for="modal-form-add-book-title">Title</label>
-            <input id="modal-form-add-book-title" name="modal-form-add-book-title" type="text" required>
-          </div>
-          <div class="modal-add-book-input-container">
-            <label for="modal-form-add-book-author">Author</label>
-            <input id="modal-form-add-book-author" name="modal-form-add-book-author" type="text" required>
-          </div>
-          <div class="modal-add-book-input-container">
-            <label for="modal-form-add-book-pages">Pages</label>
-            <input id="modal-form-add-book-pages" name="modal-form-add-book-pages" type="number" required>
-          </div>
-          <div class="modal-add-book-input-container">
-            <label for="modal-form-add-book-read">Has it been read?</label>
-            <input id="modal-form-add-book-read" name="modal-form-add-book-read" type="checkbox">
-          </div>
-          <button id="modal-button-cancel-add-book" class="modal-button-cancel-add-book">
-            Cancel
-          </button>
-          <button id="modal-button-add-book" class="modal-button-add-book" type="submit">
-            Add Book to Library
-          </button>
-        </form>
+    <dialog id="add-book-dialog" class="add-book-dialog">
+      <form id="add-book-form" class="add-book-form" action="index.html" method="dialog">
+        <div class="add-book-form-field-container">
+          <label for="add-book-form-title">Title</label>
+          <input id="add-book-form-title" name="add-book-form-title" type="text" required>
+        </div>
+        <div class="add-book-form-field-container">
+          <label for="add-book-form-author">Author</label>
+          <input id="add-book-form-author" name="add-book-form-author" type="text" required>
+        </div>
+        <div class="add-book-form-field-container">
+          <label for="add-book-form-pages">Pages</label>
+          <input id="add-book-form-pages" name="add-book-form-pages" type="number" required>
+        </div>
+        <div class="add-book-form-field-container">
+          <label for="add-book-form-read">Has it been read?</label>
+          <input id="add-book-form-read" name="add-book-form-read" type="checkbox">
+        </div>
+        <button id="button-add-book-cancel" class="button-add-book-cancel" type="button">
+          Cancel
+        </button>
+        <button id="button-add-book-confirm" class="button-add-book-confirm" type="submit">
+          Add Book to Library
+        </button>
+      </form>
+    </dialog>
+    <dialog id="confirm-dialog" class="confirm-dialog">
+      <div id="dialog-element-container" class="dialog-element-container">
+        <p id="dialog-text" class="dialog-text">
+        </p>
+        <button id="button-dialog-cancel" class="button-dialog-cancel">
+          Cancel
+        </button>
+        <button id="button-dialog-confirm" class="button-dialog-confirm">
+          OK
+        </button>
       </div>
-    </div>
+    </dialog>
   </body>
 </html>
