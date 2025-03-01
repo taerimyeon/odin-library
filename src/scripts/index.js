@@ -8,11 +8,15 @@ function Book(
   isRead
 ) {
   // The book constructor
-  this.id = id
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.isRead = isRead
+  this.id = id;
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.isRead = isRead;
+}
+
+Book.prototype.toggleIsRead = function() {
+  this.isRead = !this.isRead;
 }
 
 function addBookToLibrary(
@@ -44,7 +48,7 @@ function displayBookCards(bookData) {
   const newBookTitleElement = document.createElement("p");
   const newBookAuthorElement = document.createElement("p");
   const newBookPagesElement = document.createElement("p");
-  const newBookIsReadElement = document.createElement("p");
+  const newBookIsReadElement = document.createElement("input");
   const newBookRemoveButton = document.createElement("button");
 
   newBookCardIndividualContainer.setAttribute("id", bookData.id);
@@ -54,16 +58,21 @@ function displayBookCards(bookData) {
   newBookAuthorElement.setAttribute("class", "book-author");
   newBookPagesElement.setAttribute("id", "book-pages");
   newBookPagesElement.setAttribute("class", "book-pages");
-  newBookIsReadElement.setAttribute("id", "book-is-read");
+  newBookIsReadElement.setAttribute("id", bookData.id);
   newBookIsReadElement.setAttribute("class", "book-is-read");
+  newBookIsReadElement.setAttribute("type", "checkbox");
   newBookRemoveButton.addEventListener("click", () => {
     removeBookFromLibrary(bookData.id);
+  });
+  newBookIsReadElement.addEventListener("change", () => {
+    bookData.toggleIsRead();
+    console.log(`Book ID ${bookData.id} is read? '${bookData.isRead ? "Yes" : "No"}'`);
   });
 
   newBookTitleElement.textContent = bookData.title;
   newBookAuthorElement.textContent = bookData.author;
   newBookPagesElement.textContent = `${bookData.pages} pages`;
-  newBookIsReadElement.textContent = bookData.isRead;
+  newBookIsReadElement.checked = bookData.isRead;
   newBookRemoveButton.textContent = "Delete Book";
 
   // Append the display elements to individual card container
