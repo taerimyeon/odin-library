@@ -40,13 +40,15 @@ function removeBookFromLibrary(bookId) {
 }
 
 function displayBookCards(bookData) {
-  const newBookCardMainContainer = document.getElementById("book-cards-container");
+  const newBookCardMainContainer = document.getElementById("book-display-body");
   const newBookCardIndividualContainer = document.createElement("div");
   const newBookTitleElement = document.createElement("p");
   const newBookAuthorElement = document.createElement("p");
   const newBookPagesElement = document.createElement("p");
   const newBookIsReadElement = document.createElement("input");
+  const newBookCardIndividualButtonContainer = document.createElement("div");
   const newBookRemoveButton = document.createElement("button");
+  const newBookRemoveButtonIcon = document.createElement("img");
 
   newBookCardIndividualContainer.setAttribute("id", bookData.id);
   newBookTitleElement.setAttribute("id", "book-title");
@@ -58,6 +60,11 @@ function displayBookCards(bookData) {
   newBookIsReadElement.setAttribute("id", "book-is-read");
   newBookIsReadElement.setAttribute("class", "book-is-read");
   newBookIsReadElement.setAttribute("type", "checkbox");
+  newBookRemoveButton.setAttribute("id", "book-remove");
+  newBookRemoveButton.setAttribute("class", "book-remove");
+  newBookRemoveButtonIcon.setAttribute("src", "./src/assets/icons/book-remove.svg");
+  newBookCardIndividualButtonContainer.setAttribute("id", "book-button-container");
+  newBookCardIndividualButtonContainer.setAttribute("class", "book-button-container");
   newBookRemoveButton.addEventListener("click", () => {
     bookIdToBeDeleted = bookData.id; // Store the clicked book ID
     const modalDialogTextComponent = document.getElementById("dialog-text");
@@ -74,14 +81,15 @@ function displayBookCards(bookData) {
   newBookAuthorElement.textContent = bookData.author;
   newBookPagesElement.textContent = `${bookData.pages} pages`;
   newBookIsReadElement.checked = bookData.isRead;
-  newBookRemoveButton.textContent = "Delete Book";
+  newBookRemoveButton.appendChild(newBookRemoveButtonIcon);
 
   // Append the display elements to individual card container
   newBookCardIndividualContainer.appendChild(newBookTitleElement);
   newBookCardIndividualContainer.appendChild(newBookAuthorElement);
   newBookCardIndividualContainer.appendChild(newBookPagesElement);
-  newBookCardIndividualContainer.appendChild(newBookIsReadElement);
-  newBookCardIndividualContainer.appendChild(newBookRemoveButton);
+  newBookCardIndividualButtonContainer.appendChild(newBookIsReadElement);
+  newBookCardIndividualButtonContainer.appendChild(newBookRemoveButton);
+  newBookCardIndividualContainer.appendChild(newBookCardIndividualButtonContainer);
   // Then to the main card container
   newBookCardMainContainer.appendChild(newBookCardIndividualContainer);
 }
