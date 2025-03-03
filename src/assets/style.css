@@ -2,6 +2,8 @@
   --color-black: #000000;
   --color-light-red-200: #EE9C9D;
   --color-light-red: #EF5657;
+  --color-light-green-800: #00AE07;
+  --color-light-green: #56EF56;
   --color-light-purple-background: #4E7DFF;
   --color-light-purple-background-200: #96C6FF;
   --color-light-purple-background-400: #569EFF;
@@ -276,4 +278,19 @@ body {
 
 .button-dialog-cancel:hover {
   background-color: var(--color-white-200);
+}
+
+.toast {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background-color: var(--color-light-purple-background);
+  border-radius: var(--border-radius-six-px);
+  padding: 0 2rem;
+}
+
+.toast-message {
+  color: var(--color-white);
+  font-weight: var(--font-weight-light);
 }

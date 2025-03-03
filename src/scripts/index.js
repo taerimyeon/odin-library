@@ -32,6 +32,7 @@ function addBookToLibrary(
   myLibrary.push(newBook);
   addBookToDisplayCard(myLibrary[myLibrary.length - 1]);
   checkBookEmpty();
+  showToast(`New book '${title}' added`);
 }
 
 function removeBookFromLibrary(bookId) {
@@ -39,6 +40,7 @@ function removeBookFromLibrary(bookId) {
   bookCardContainer.parentNode.removeChild(bookCardContainer);
   myLibrary = myLibrary.filter(book => book.id !== bookId);
   checkBookEmpty();
+  showToast("Book removed");
 }
 
 function createElement(elementType, elementIdAndClassName) {
@@ -60,6 +62,16 @@ function checkBookEmpty() {
   }
 }
 
+function showToast(text) {
+  const toastContainer = document.getElementById("toast");
+  const toastText = document.getElementById("toast-message");
+  toastContainer.style.display = "block";
+  toastText.textContent = text;
+  setTimeout(() => {
+    toastContainer.style.display = "none";
+  }, 2000);
+}
+
 function addBookToDisplayCard(bookData) {
   const bookGridContainer = document.getElementById("book-display-body");
   const bookCardContainer = document.createElement("div");
@@ -77,6 +89,8 @@ function addBookToDisplayCard(bookData) {
   const srcImgUnread = "./src/assets/icons/book-outline.svg";
   bookIsReadIcon.setAttribute("src", bookData.isRead ? srcImgRead : srcImgUnread);
   bookRemoveIcon.setAttribute("src", "./src/assets/icons/book-remove.svg");
+  bookIsReadButton.setAttribute("title", "Toggle this book read status");
+  bookRemoveButton.setAttribute("title", "Remove this book");
   bookRemoveButton.addEventListener("click", () => {
     bookIdToBeDeleted = bookData.id; // Store the clicked book ID
     const textDialog = document.getElementById("dialog-text");
@@ -87,6 +101,7 @@ function addBookToDisplayCard(bookData) {
   bookIsReadButton.addEventListener("click", () => {
     bookData.toggleIsRead();
     bookIsReadIcon.setAttribute("src", bookData.isRead ? srcImgRead : srcImgUnread);
+    showToast(bookData.isRead ? `Book '${bookData.title}' read` : `Book '${bookData.title}' not read`);
     console.log(`Book ID ${bookData.id} is read? '${bookData.isRead ? "Yes" : "No"}'`);
   });
 
