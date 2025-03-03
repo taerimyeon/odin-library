@@ -113,7 +113,27 @@ body {
 .book-display-body .book-button-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.book-display-body .book-is-read {
+  cursor: pointer;
+  background-color: var(--color-light-purple-background);
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
+
+.book-display-body .book-is-read:hover {
+  background-color: var(--color-light-purple-background-200);
+}
+
+.book-display-body .book-is-read img {
+  filter: invert(1);
+  width: 1.5rem;
+  height: auto;
 }
 
 .book-display-body .book-remove {
