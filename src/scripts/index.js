@@ -31,12 +31,14 @@ function addBookToLibrary(
   const newBook = new Book(id, title, author, pages, isRead);
   myLibrary.push(newBook);
   addBookToDisplayCard(myLibrary[myLibrary.length - 1]);
+  checkBookEmpty();
 }
 
 function removeBookFromLibrary(bookId) {
   const bookCardContainer = document.getElementById(bookId);
   bookCardContainer.parentNode.removeChild(bookCardContainer);
   myLibrary = myLibrary.filter(book => book.id !== bookId);
+  checkBookEmpty();
 }
 
 function createElement(elementType, elementIdAndClassName) {
@@ -44,6 +46,18 @@ function createElement(elementType, elementIdAndClassName) {
   newElement.setAttribute("id", elementIdAndClassName);
   newElement.setAttribute("class", elementIdAndClassName);
   return newElement;
+}
+
+function checkBookEmpty() {
+  const bookGridContainer = document.getElementById("book-display-body");
+  const bookEmptyContainer = document.getElementById("book-empty-body");
+  if (myLibrary.length === 0) {
+    bookEmptyContainer.style.display = "flex";
+    bookGridContainer.style.display = "none";
+  } else {
+    bookEmptyContainer.style.display = "none";
+    bookGridContainer.style.display = "grid";
+  }
 }
 
 function addBookToDisplayCard(bookData) {
@@ -127,4 +141,5 @@ document.addEventListener("DOMContentLoaded", function() {
   cancelDialogButton.addEventListener("click", () => {
     confirmDialog.close(); // Close confirm dialog
   });
+  checkBookEmpty();
 })
